@@ -3,13 +3,25 @@ version: 2.1
 orbs:
   welcome: circleci/node@1.0.1
 
+jobs:
+  build:
+    executor:
+      name: node-orb/node
+    steps:
+      - checkout
+      - node-orb/with-cache:
+          steps:
+            - run:
+                command: yarn
+      - node-orb/with-splitting:
+          steps:
+            - run: env
+            - run:
+                command: yarn test
+                when: always
+      - run: env
+
 workflows:
   test:
     jobs:
-      - test
-
-jobs:
-  test:
-    - node/with-cache
-      steps:
-        yarn test
+      - build
