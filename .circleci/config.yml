@@ -6,7 +6,7 @@ orbs:
 jobs:
   build-and-test:
     executor:
-      name: node-orb/node
+      name: node
     steps:
       - checkout
       - node-orb/with-cache:
