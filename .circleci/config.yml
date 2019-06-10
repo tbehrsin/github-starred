@@ -4,16 +4,16 @@ orbs:
   welcome: circleci/node@1.0.1
 
 jobs:
-  build:
+  build-and-test:
     executor:
       name: node-orb/node
     steps:
       - checkout
-      - node-orb/with-cache:
+      - node/with-cache:
           steps:
             - run:
                 command: yarn
-      - node-orb/with-splitting:
+      - node/with-splitting:
           steps:
             - run: env
             - run:
@@ -22,6 +22,6 @@ jobs:
       - run: env
 
 workflows:
-  test:
+  build-and-test:
     jobs:
-      - build
+      - build-and-test
