@@ -4,6 +4,12 @@ orbs:
   welcome: circleci/node@1.0.1
 
 workflows:
-  GitHub Starred:
+  test:
     jobs:
-      - node
+      - test
+
+jobs:
+  test:
+    - node/with-cache
+      steps:
+        yarn test
