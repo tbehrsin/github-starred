@@ -1,4 +1,6 @@
 import React from 'react';
+import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
 import styled from 'styled-components';
 import { Star } from 'styled-icons/octicons';
 
@@ -34,20 +36,54 @@ const StarButton = styled.button`
   }
 `;
 
-export default ({ repository }) => {
-  if (repository.viewerHasStarred) {
-    return (
-      <StarButton>
-        <Star size={16} />
-        <span>Unstar</span>
-      </StarButton>
-    );
+const ADD_STAR = gql`
+  mutation AddStar($id: ID!) {
+    addStar(input: { starrableId: $id }) {
+      clientMutationId
+      starrable {
+        viewerHasStarred
+      }
+    }
   }
+`;
 
-  return (
-    <StarButton>
-      <Star size={16} />
-      <span>Star</span>
-    </StarButton>
-  );
-};
+const REMOVE_STAR = gql`
+  mutation RemoveStar($id: ID!) {
+    removeStar(input: { starrableId: $id }) {
+      clientMutationId
+      starrable {
+        viewerHasStarred
+      }
+    }
+  }
+`;
+
+export default ({ repository, onChange }) => (
+  <Mutation mutation={repository.viewerHasStarred ? REMOVE_STAR : ADD_STAR}>
+    {(star, { data }) => {
+      const starred = data ?
+        (data.addStar || data.removeStar).starrable.viewerHasStarred :
+        repository.viewerHasStarred;
+
+      if (data) {
+        onChange(starred);
+      }
+
+      if (starred) {
+        return (
+          <StarButton onClick={() => star({ variables: { id: repository.id }})}>
+            <Star size={16} />
+            <span>Unstar</span>
+          </StarButton>
+        );
+      }
+
+      return (
+        <StarButton onClick={() => star({ variables: { id: repository.id }})}>
+          <Star size={16} />
+          <span>Star</span>
+        </StarButton>
+      );
+    }}
+  </Mutation>
+);
