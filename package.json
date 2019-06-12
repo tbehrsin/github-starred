@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.4.5",
     "@babel/node": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "apollo-cache-inmemory": "^1.6.2",
     "apollo-client": "^2.6.2",
     "apollo-link-context": "^1.0.17",
+    "apollo-link-debounce": "^2.1.0",
     "apollo-link-http": "^1.5.14",
     "dotenv": "^8.0.0",
     "graphql": "^14.3.1",

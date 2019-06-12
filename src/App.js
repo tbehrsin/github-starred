@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import './App.css';
 import { LogoGithub } from 'styled-icons/octicons';
 
-import Login from './components/Login';
+import LoginButton from './components/LoginButton';
 import SearchInput from './components/SearchInput';
+import StarredList from './components/StarredList';
+import SearchList from './components/SearchList';
 
 const Header = styled.div`
   display: flex;
@@ -28,7 +30,22 @@ const Logo = styled.span`
   }
 `;
 
-const App = () => (
+const ListContainer = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+
+
+  & > div {
+    max-width: 660px;
+    width: 100%;
+  }
+`;
+
+const App = () => {
+  const [query, setQuery] = useState('');
+
+  return (
     <div className="App">
       <header className="App-header">
         <Header>
@@ -36,11 +53,16 @@ const App = () => (
             <LogoGithub size="72" />
             <span>Starred</span>
           </Logo>
-          <Login />
+          <LoginButton />
         </Header>
-        <SearchInput />
+        <SearchInput value={query} onChangeText={(value) => setQuery(value)} />
       </header>
+      <ListContainer><div>
+        {!query.trim() && <StarredList />}
+        {query.trim() && <SearchList query={query} />}
+      </div></ListContainer>
     </div>
-);
+  );
+};
 
 export default App;
