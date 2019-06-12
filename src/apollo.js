@@ -1,6 +1,8 @@
 import { ApolloClient } from 'apollo-client';
+import { ApolloLink } from 'apollo-link';
 import { createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
+import DebounceLink from 'apollo-link-debounce';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 const httpLink = createHttpLink({
@@ -27,7 +29,12 @@ const authLink = setContext((_, { headers }) => {
   }
 });
 
+const debounceLink = ApolloLink.from([
+  new DebounceLink(100),
+  authLink.concat(httpLink)
+]);
+
 export default new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: debounceLink,
   cache: new InMemoryCache(),
 });
