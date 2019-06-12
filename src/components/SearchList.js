@@ -24,6 +24,7 @@ const SEARCH = gql`
             }
           }
           ... on Starrable {
+            id
             viewerHasStarred
           }
         }
@@ -34,7 +35,7 @@ const SEARCH = gql`
 
 export default ({ query }) => (
   <Query query={SEARCH} variables={{ query }}>
-    {({ loading, error, data }) => {
+    {({ loading, error, data, refetch }) => {
 
       if (loading) {
         return <div>Loading...</div>
@@ -47,7 +48,11 @@ export default ({ query }) => (
       return (
         <div>
           {data.search.edges.map(({ node }) => (
-            <ListItem key={node.nameWithOwner} repository={node} />
+            <ListItem
+              key={node.nameWithOwner}
+              repository={node}
+              onChange={() => refetch()}
+            />
           ))}
         </div>
       );

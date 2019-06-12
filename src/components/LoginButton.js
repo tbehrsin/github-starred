@@ -40,7 +40,7 @@ export default () => (
     {({ loading, error, data }) => {
       if (error) {
         return (
-          <Button href={`https://github.com/login/oauth/authorize?scope=user:email&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}`}>
+          <Button href={`https://github.com/login/oauth/authorize?scope=public_repo,private_repo&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}`}>
             Sign in to GitHub
           </Button>
         );

@@ -25,6 +25,7 @@ const STARRED = gql`
               }
             }
             ... on Starrable {
+              id
               viewerHasStarred
             }
           }
@@ -36,7 +37,7 @@ const STARRED = gql`
 
 export default ({ query }) => (
   <Query query={STARRED}>
-    {({ loading, error, data }) => {
+    {({ loading, error, data, refetch }) => {
 
       if (loading) {
         return <div>Loading...</div>
@@ -49,7 +50,11 @@ export default ({ query }) => (
       return (
         <div>
           {data.viewer.starredRepositories.edges.map(({ node }) => (
-            <ListItem key={node.nameWithOwner} repository={node} />
+            <ListItem
+              key={node.nameWithOwner}
+              repository={node}
+              onChange={() => refetch()}
+            />
           ))}
         </div>
       );

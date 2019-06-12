@@ -54,7 +54,7 @@ const Stargazers = styled.div`
 
 
 
-export default ({ repository }) => {
+export default ({ repository, onChange }) => {
   return (
     <Container>
       <Row>
@@ -62,7 +62,7 @@ export default ({ repository }) => {
           <Repo size={16} />
           <span>{repository.owner.login}/{repository.name}</span>
         </RepositoryName>
-        <StarButton repository={repository} />
+        <StarButton repository={repository} onChange={onChange} />
       </Row>
       <Description dangerouslySetInnerHTML={{ __html: repository.descriptionHTML }} />
       <Stargazers>
