@@ -36,7 +36,7 @@ const StarButton = styled.button`
   }
 `;
 
-const ADD_STAR = gql`
+export const ADD_STAR = gql`
   mutation AddStar($id: ID!) {
     addStar(input: { starrableId: $id }) {
       clientMutationId
@@ -47,7 +47,7 @@ const ADD_STAR = gql`
   }
 `;
 
-const REMOVE_STAR = gql`
+export const REMOVE_STAR = gql`
   mutation RemoveStar($id: ID!) {
     removeStar(input: { starrableId: $id }) {
       clientMutationId

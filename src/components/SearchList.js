@@ -6,7 +6,7 @@ import ListItem from './ListItem';
 
 const SEARCH = gql`
   query Search($query: String!) {
-    search(query: $query, type: REPOSITORY, first: 10) {
+    search(query: $query, type: REPOSITORY, first: 100) {
       repositoryCount
       edges {
         node {
