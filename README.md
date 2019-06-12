@@ -1,3 +1,17 @@
+# GitHub Starred
+
+A demo project to show use of Apollo querying and mutating the GitHub GraphQL API in React.
+
+## Demo link
+
+[Heroku App](https://github-starred.herokuapp.com)
+
+## Room for improvement
+
+- Implement react-infinite and use Apollo's `fetchMore` to break free of 100-item query limit
+- More jest tests for each component (currently only starring/unstarring is tested)
+- Better error and loading messages
+- Similarly, correctly handle not-logged-in state without an error message
 
 ## Setup
 
