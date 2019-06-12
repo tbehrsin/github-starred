@@ -7,7 +7,7 @@ import ListItem from './ListItem';
 const STARRED = gql`
   {
     viewer {
-      starredRepositories(first: 10) {
+      starredRepositories(first: 100) {
         totalCount
         edges {
           node {
